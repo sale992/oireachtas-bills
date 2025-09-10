@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { type MappedBill } from '../types/bills'
+import { type MappedBill } from '@/types/bills'
 
 interface IBillsStore {
   favoriteBills: MappedBill[]

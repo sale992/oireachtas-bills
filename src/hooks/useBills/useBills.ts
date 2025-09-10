@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { type BillsParams, type BillsResponse } from '../../types/bills'
-import { getOireachtasBills } from '../../api/bills/bills'
+import { type BillsParams, type BillsResponse } from '@/types/bills'
+import { getOireachtasBills } from '@/api/bills/bills'
 
 export const useBills = (options: BillsParams) => {
   const { ...params } = options
@@ -21,7 +21,7 @@ export const useBills = (options: BillsParams) => {
         status: bill.status,
         sponsor: bill.sponsors?.[0]?.sponsor?.as?.showAs || 'No sponsor',
         longTitleEn: bill.longTitleEn,
-        longTitleGa: bill.longTitleGa 
+        longTitleGa: bill.longTitleGa,
       }))
       .sort((a, b) => Number(a.billNo) - Number(b.billNo))
   }, [billsResponse])

@@ -13,7 +13,7 @@ import {
 import FavoriteIcon from '@mui/icons-material/Favorite'
 
 import CustomTableHead from './components/CustomTableHead/CustomTableHead'
-import { type MappedBill } from '../../types/bills'
+import { type MappedBill } from '@/types/bills'
 
 interface IBillsTableProps {
   bills?: MappedBill[]
