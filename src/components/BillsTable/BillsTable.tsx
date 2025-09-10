@@ -10,11 +10,11 @@ import {
   IconButton,
   Stack,
 } from '@mui/material'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 
-import CustomTableHead from './components/CustomTableHead/CustomTableHead'
+import BillsTableHead from './components/BillsTableHead/BillsTableHead'
 import { type MappedBill } from '@/types/bills'
-
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd'
+import theme from '@/theme/theme'
 interface IBillsTableProps {
   bills?: MappedBill[]
   isLoading?: boolean
@@ -78,7 +78,7 @@ const BillsTable = (props: IBillsTableProps) => {
     <>
       <TableContainer>
         <Table aria-labelledby="Bills" size="medium">
-          <CustomTableHead />
+          <BillsTableHead />
           <TableBody>
             {bills.map((row, index) => {
               const labelId = `enhanced-table-checkbox-${index}`
@@ -92,13 +92,20 @@ const BillsTable = (props: IBillsTableProps) => {
                   key={row.id}
                   sx={{ cursor: 'pointer' }}
                 >
-                  <TableCell id={labelId}>{row.billNo}</TableCell>
-                  <TableCell>{row.billType}</TableCell>
-                  <TableCell>{row.status}</TableCell>
+                  <TableCell id={labelId} width={80}>
+                    {row.billNo}
+                  </TableCell>
+                  <TableCell width={80}>{row.billType}</TableCell>
+                  <TableCell width={80}>{row.status}</TableCell>
                   <TableCell>{row.sponsor}</TableCell>
                   <TableCell align="right">
                     <IconButton onClick={(e) => handleFavoriteClick(e, row)}>
-                      <FavoriteIcon sx={{ fill: isMarkedAsFavorite ? 'red' : 'transparent', stroke: 'red' }} />
+                      <BookmarkAddIcon
+                        sx={{
+                          fill: isMarkedAsFavorite ? theme.palette.primary.main : 'transparent',
+                          stroke: theme.palette.primary.main,
+                        }}
+                      />
                     </IconButton>
                   </TableCell>
                 </TableRow>

@@ -43,24 +43,13 @@ const theme = createTheme({
         root: ({ theme }) => ({
           display: 'flex',
           border: '2px solid transparent',
-          borderRadius: 10,
           fontSize: theme.typography.pxToRem(16),
           ':hover': {
-            border: `2px solid ${theme.palette.primary.main}`,
+            // border: `2px solid ${theme.palette.primary.main}`,
           },
           '&.Mui-focused': {
-            background: theme.palette.primary.light,
-            border: `2px solid ${theme.palette.primary.main}`,
-          },
-          '&.Mui-disabled': {
-            opacity: 0.6,
-            border: '2px solid transparent',
-          },
-          '&.Mui-error': {
-            borderColor: 'transparent',
-            '& .MuiInputBase-input': {
-              border: `1px solid ${theme.palette.error.main}`,
-            },
+            // background: theme.palette.primary.light,
+            // border: `2px solid ${theme.palette.primary.main}`,
           },
         }),
       },

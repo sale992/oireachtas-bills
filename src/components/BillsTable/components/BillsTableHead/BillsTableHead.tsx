@@ -23,7 +23,7 @@ const cells = [
   },
 ]
 
-const CustomTableHead = () => {
+const BillsTableHead = () => {
   return (
     <TableHead>
       <TableRow>
@@ -37,4 +37,4 @@ const CustomTableHead = () => {
   )
 }
 
-export default CustomTableHead
+export default BillsTableHead

@@ -11,13 +11,13 @@ import { useTablePagination } from '@/hooks/useTablePagination/useTablePaginatio
 import { removeHtmlTags } from '@/utils/functional'
 
 const Home = () => {
-  const [type, setType] = useState('all')
+  const [type, setType] = useState<'all' | 'private' | 'public'>('all')
   const [selectedBill, setSelectedBill] = useState<MappedBill | null>(null)
 
   const billsPagination = useTablePagination()
   const favoriteBillsPagination = useTablePagination()
 
-  const [open, toggleOpen] = useToggleState()
+  const [openModal, toggleModal] = useToggleState()
 
   const { favoriteBills, toggleFavoriteBill, isFavoriteBill: isFavorite } = useBillsStore()
 
@@ -27,7 +27,7 @@ const Home = () => {
   })
 
   const handleChange = (event: SelectChangeEvent) => {
-    setType(event.target.value)
+    setType(event.target.value as 'all' | 'private' | 'public')
   }
 
   const filteredBills = useMemo(() => {
@@ -38,7 +38,7 @@ const Home = () => {
 
   const handleRowClick = (row: MappedBill) => {
     setSelectedBill(row)
-    toggleOpen()
+    toggleModal()
   }
 
   const tabs = [
@@ -47,7 +47,7 @@ const Home = () => {
       component: (
         <>
           <Box maxWidth={250}>
-            <Select labelId="bills-dropdown" id="bills-dropdown" value={type} label="Bill type" onChange={handleChange}>
+            <Select labelId="bills-dropdown" id="bills-dropdown" value={type} onChange={handleChange}>
               {['All', 'Private', 'Public'].map((item) => (
                 <MenuItem value={item.toLowerCase()} key={item}>
                   {item}
@@ -93,21 +93,21 @@ const Home = () => {
   const modalTabs = [
     {
       label: 'English',
-      component: <Typography variant="text">{removeHtmlTags(selectedBill?.longTitleEn ?? '')}</Typography>,
+      component: <Typography variant="body1">{removeHtmlTags(selectedBill?.longTitleEn ?? '')}</Typography>,
     },
     {
       label: 'Gaeilge',
-      component: <Typography variant="text">{removeHtmlTags(selectedBill?.longTitleGa ?? '')}</Typography>,
+      component: <Typography variant="body1">{removeHtmlTags(selectedBill?.longTitleGa ?? '')}</Typography>,
     },
   ]
 
   return (
     <Container>
-      <Typography variant="h1" color="textSecondary">
+      <Typography variant="h1" my={5} fontSize={35} color="textSecondary">
         Oireachtas bills
       </Typography>
       <Tabs tabs={tabs} />
-      <Modal open={open} onClose={toggleOpen}>
+      <Modal open={openModal} onClose={toggleModal}>
         <Tabs tabs={modalTabs} />
       </Modal>
     </Container>
