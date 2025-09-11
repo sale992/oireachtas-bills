@@ -1,7 +1,8 @@
-import { describe, it, expect } from 'vitest'
-import { render, fireEvent } from '@testing-library/react'
-import Tabs from '../Tabs'
 import { Box, Typography } from '@mui/material'
+import { render, fireEvent } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
+
+import Tabs from '../Tabs'
 
 describe('Tabs', () => {
   const tabs = [

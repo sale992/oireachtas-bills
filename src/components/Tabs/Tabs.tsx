@@ -1,6 +1,6 @@
+import Show from '@/components/Show/Show'
 import { Box, Tab, Tabs as MuiTabs } from '@mui/material'
 import React, { useState } from 'react'
-import Show from '@/components/Show/Show'
 
 interface ITabPanelProps {
   children?: React.ReactNode

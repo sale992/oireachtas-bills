@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
     "preview": "vite preview",
-    "test": "vitest --coverage --watch"
+    "test": "vitest --coverage --watch",
+    "fmt": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\""
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -27,6 +28,7 @@
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",

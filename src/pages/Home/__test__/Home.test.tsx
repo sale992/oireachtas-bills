@@ -1,9 +1,9 @@
+import { mappedBillsMock, billsResponseMock } from '@/__mocks__/billsDataMock'
 import { render, fireEvent } from '@testing-library/react'
-import { vi, expect, it, describe } from 'vitest'
 import userEvent from '@testing-library/user-event'
+import { vi, expect, it, describe } from 'vitest'
 
 import Home from '../Home'
-import { mappedBillsMock, billsResponseMock } from '@/__mocks__/billsDataMock'
 
 vi.mock('@/hooks/useBills/useBills', () => ({
   useBills: () => ({
@@ -56,7 +56,7 @@ describe('Home page', () => {
 
   it('expects to render tabs', () => {
     const { getByRole } = render(<Home />)
-    
+
     expect(getByRole('tab', { name: /all bills/i })).toBeInTheDocument()
     expect(getByRole('tab', { name: /favorite bills/i })).toBeInTheDocument()
   })

@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest'
-import { removeHtmlTags, getAllSponsors } from '@/utils/functional'
 import { type IOireachtasBill } from '@/types/bills'
+import { removeHtmlTags, getAllSponsors } from '@/utils/functional'
+import { describe, expect, it } from 'vitest'
 
 describe('removeHtmlTags', () => {
   it('expects to return empty string', () => {

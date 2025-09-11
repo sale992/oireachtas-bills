@@ -1,8 +1,9 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { getOireachtasBills } from '../bills'
+import { billsResponseMock } from '@/__mocks__/billsDataMock'
 import { apiOireachtas } from '@/services/axios'
 import type { IBillsParams } from '@/types/bills'
-import { billsResponseMock } from '@/__mocks__/billsDataMock'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+
+import { getOireachtasBills } from '../bills'
 
 vi.mock('@/services/axios', () => ({
   apiOireachtas: {

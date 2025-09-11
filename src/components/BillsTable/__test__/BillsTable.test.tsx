@@ -1,9 +1,10 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, fireEvent } from '@testing-library/react'
-import { ThemeProvider } from '@mui/material/styles'
-import BillsTable from '../BillsTable'
-import theme from '@/theme/theme'
 import { mappedBillsMock } from '@/__mocks__/billsDataMock'
+import theme from '@/theme/theme'
+import { ThemeProvider } from '@mui/material/styles'
+import { render, fireEvent } from '@testing-library/react'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+
+import BillsTable from '../BillsTable'
 
 const defaultProps = {
   bills: mappedBillsMock,
@@ -51,10 +52,7 @@ describe('BillsTable', () => {
 
   it('expect not to open modal when favorite icon is clicked', () => {
     const onRowClick = vi.fn()
-    const onHandleFavorite = vi.fn()
-    const { getAllByRole } = renderWithTheme(
-      <BillsTable {...defaultProps} onRowClick={onRowClick} onHandleFavorite={onHandleFavorite} />
-    )
+    const { getAllByRole } = renderWithTheme(<BillsTable {...defaultProps} onRowClick={onRowClick} />)
 
     const favoriteButtons = getAllByRole('button').filter((button) =>
       button.querySelector('[data-testid="BookmarkAddIcon"]')
@@ -62,20 +60,7 @@ describe('BillsTable', () => {
 
     fireEvent.click(favoriteButtons[0])
 
-    expect(onHandleFavorite).toHaveBeenCalledTimes(1)
     expect(onRowClick).not.toHaveBeenCalled()
-  })
-
-  it('expect to display favorite icon when selected', () => {
-    const isFavorite = vi
-      .fn()
-      .mockImplementation((billId: string) => billId === 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/65')
-
-    renderWithTheme(<BillsTable {...defaultProps} isFavorite={isFavorite} />)
-
-    expect(isFavorite).toHaveBeenCalledWith('https://data.oireachtas.ie/ie/oireachtas/bill/2024/65')
-    expect(isFavorite).toHaveBeenCalledWith('https://data.oireachtas.ie/ie/oireachtas/bill/2024/78')
-    expect(isFavorite).toHaveBeenCalledWith('https://data.oireachtas.ie/ie/oireachtas/bill/2023/97')
   })
 })
 

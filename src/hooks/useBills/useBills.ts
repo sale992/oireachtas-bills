@@ -1,8 +1,8 @@
+import { getOireachtasBills } from '@/api/bills/bills'
+import { type IBillsParams, type IBillsResponse } from '@/types/bills'
+import { getAllSponsors } from '@/utils/functional'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { type IBillsParams, type IBillsResponse } from '@/types/bills'
-import { getOireachtasBills } from '@/api/bills/bills'
-import { getAllSponsors } from '@/utils/functional'
 
 export const useBills = (params: IBillsParams) => {
   const { data: billsResponse, isPending: isLoadingBills } = useQuery<IBillsResponse>({

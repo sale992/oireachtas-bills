@@ -1,7 +1,8 @@
-import { describe, it, expect } from 'vitest'
-import { render } from '@testing-library/react'
-import Show from '../Show'
 import { Box, Typography } from '@mui/material'
+import { render } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
+
+import Show from '../Show'
 
 describe('Show component', () => {
   it('expects to render children', () => {

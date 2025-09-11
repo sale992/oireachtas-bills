@@ -1,7 +1,8 @@
+import { mappedBillsMock } from '@/__mocks__/billsDataMock'
 import { renderHook, act } from '@testing-library/react'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
+
 import { useBillsStore } from '../useBillsStore'
-import { mappedBillsMock } from '@/__mocks__/billsDataMock'
 
 const mockStorage: { [key: string]: string } = {}
 

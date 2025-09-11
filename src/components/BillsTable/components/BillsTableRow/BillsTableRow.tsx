@@ -1,21 +1,22 @@
-import { type IMappedBill } from '@/types/bills'
-import { TableCell, IconButton, TableRow } from '@mui/material'
+import { useBillsStore } from '@/stores/useBillsStore'
 import theme from '@/theme/theme'
+import { type IMappedBill } from '@/types/bills'
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd'
+import { TableCell, IconButton, TableRow } from '@mui/material'
 
 interface IBillsTableRowProps {
   row: IMappedBill
   onRowClick: (row: IMappedBill) => void
-  onFavoriteClick: (row: IMappedBill) => void
-  isFavorite: (billId: string) => boolean
 }
 
-const BillsTableRow = ({ row, onRowClick, onFavoriteClick, isFavorite }: IBillsTableRowProps) => {
-  const isMarked = isFavorite(row.id)
+const BillsTableRow = ({ row, onRowClick }: IBillsTableRowProps) => {
+  const { isFavoriteBill, toggleFavoriteBill } = useBillsStore()
+
+  const isMarked = isFavoriteBill(row.id)
 
   const handleFavoriteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
-    onFavoriteClick(row)
+    toggleFavoriteBill(row)
   }
 
   return (

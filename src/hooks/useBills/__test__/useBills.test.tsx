@@ -1,10 +1,11 @@
+import { billsResponseMock } from '@/__mocks__/billsDataMock'
+import { getOireachtasBills } from '@/api/bills/bills'
+import type { IBillsParams } from '@/types/bills'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest'
+
 import { useBills } from '../useBills'
-import { getOireachtasBills } from '@/api/bills/bills'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import type { IBillsParams } from '@/types/bills'
-import { billsResponseMock } from '@/__mocks__/billsDataMock'
 
 const queryClient = new QueryClient({
   defaultOptions: {

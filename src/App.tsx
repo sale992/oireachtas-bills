@@ -1,8 +1,9 @@
+import { ThemeProvider } from '@mui/material'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { queryClient } from './services/queryClient/index'
+
 import Home from './pages/Home/Home'
-import { ThemeProvider } from '@mui/material'
+import { queryClient } from './services/queryClient/index'
 import theme from './theme/theme'
 
 function App() {

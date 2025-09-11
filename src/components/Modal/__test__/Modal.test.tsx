@@ -1,7 +1,8 @@
-import { describe, it, expect, vi } from 'vitest'
-import { render, fireEvent } from '@testing-library/react'
-import Modal from '../Modal'
 import { Box, Typography } from '@mui/material'
+import { render, fireEvent } from '@testing-library/react'
+import { describe, it, expect, vi } from 'vitest'
+
+import Modal from '../Modal'
 
 describe('Modal', () => {
   it('expects to close modal', () => {
