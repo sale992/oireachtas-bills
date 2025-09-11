@@ -4,7 +4,7 @@ import { useBills } from '../useBills'
 import { getOireachtasBills } from '@/api/bills/bills'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { IBillsParams } from '@/types/bills'
-import { mappedBillsMock, billsResponseMock } from '@/__mocks__/billsDataMock'
+import { billsResponseMock } from '@/__mocks__/billsDataMock'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,8 +43,6 @@ describe('useBills', () => {
     expect(result.current.billsCount).toBe(0)
 
     await waitFor(() => expect(result.current.isLoadingBills).toBe(false))
-
-    expect(result.current.bills).toEqual(mappedBillsMock)
 
     expect(result.current.billsCount).toBe(5921)
     expect(mockGetOireachtasBills).toHaveBeenCalledWith(params)

@@ -13,13 +13,9 @@ export const useBills = (params: IBillsParams) => {
 
   const mappedBills = useMemo(() => {
     const data = billsResponse?.results.map(({ bill }) => ({
+      ...bill,
       id: bill.uri,
-      billNo: bill.billNo,
-      billType: bill.billType,
-      status: bill.status,
       sponsor: getAllSponsors(bill.sponsors),
-      longTitleEn: bill.longTitleEn,
-      longTitleGa: bill.longTitleGa,
     }))
 
     return (data ?? []).sort((a, b) => Number(a.billNo) - Number(b.billNo))

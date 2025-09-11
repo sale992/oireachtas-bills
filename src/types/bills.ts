@@ -117,16 +117,10 @@ export interface IOireachtasBill {
   versions: { version: IVersion }[]
 }
 
-export interface IMappedBill {
+export type IMappedBill = Pick<IOireachtasBill, 'billNo' | 'billType' | 'status' | 'longTitleEn' | 'longTitleGa'> & {
   id: string
-  billNo: string
-  billType: string
-  status: string
   sponsor: string
-  longTitleEn: string
-  longTitleGa: string
 }
-
 export interface IBillsParams {
   skip: number
   limit: number

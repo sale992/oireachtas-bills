@@ -8,27 +8,30 @@ interface IBillsStore {
   isFavoriteBill: (billId: string) => boolean
 }
 
+const initialValues = {
+  favoriteBills: [],
+}
+
 export const useBillsStore = create<IBillsStore>()(
   persist(
     (set, get) => ({
-      favoriteBills: [],
-
+      ...initialValues,
       toggleFavoriteBill: (bill) => {
-        const favoriteBills = get().favoriteBills
+        set((state) => {
+          const hasBill = state.favoriteBills.some((favoriteBill) => favoriteBill.id === bill.id)
 
-        const hasBill = favoriteBills.find((favoriteBill) => favoriteBill.id === bill.id)
-
-        if (hasBill) {
-          set({ favoriteBills: favoriteBills.filter((favoriteBill) => favoriteBill.id !== bill.id) })
-        } else {
-          set({ favoriteBills: [...favoriteBills, bill] })
-        }
-
-        console.log(
-          hasBill
+          const logMessage = hasBill
             ? 'Request dispatched: removing bill from favorites on server'
             : 'Request dispatched: adding bill to favorites on server'
-        )
+
+          console.log(logMessage)
+
+          return {
+            favoriteBills: hasBill
+              ? state.favoriteBills.filter((favoriteBill) => favoriteBill.id !== bill.id)
+              : [...state.favoriteBills, bill],
+          }
+        })
       },
       isFavoriteBill: (billId) => {
         return get().favoriteBills.some((bill) => bill.id === billId)

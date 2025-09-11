@@ -24,3 +24,6 @@ export const getAllSponsors = (sponsors: IOireachtasBill['sponsors']) => {
       .join(', ') || 'No sponsor'
   )
 }
+
+export const paginate = <T>(items: T[], page: number, rowsPerPage: number) =>
+  items.slice(page * rowsPerPage, (page + 1) * rowsPerPage)

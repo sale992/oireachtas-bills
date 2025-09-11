@@ -8,7 +8,7 @@ import Modal from '@/components/Modal/Modal'
 import { useToggleState } from '@/hooks/useToggleState/useToggleState'
 import { type IMappedBill } from '@/types/bills'
 import { useTablePagination } from '@/hooks/useTablePagination/useTablePagination'
-import { removeHtmlTags } from '@/utils/functional'
+import { paginate, removeHtmlTags } from '@/utils/functional'
 
 type BillType = 'all' | 'private' | 'public'
 
@@ -38,6 +38,11 @@ const Home = () => {
     return bills.filter((bill) => bill.billType.toLowerCase() === type)
   }, [bills, type])
 
+  const paginatedFavoriteBills = useMemo(
+    () => paginate(favoriteBills, favoriteBillsPagination.page, favoriteBillsPagination.rowsPerPage),
+    [favoriteBills, favoriteBillsPagination.page, favoriteBillsPagination.rowsPerPage]
+  )
+
   const handleRowClick = (row: IMappedBill) => {
     setSelectedBill(row)
     toggleModal()
@@ -66,12 +71,9 @@ const Home = () => {
           </Box>
 
           <BillsTable
+            {...billsPagination}
             bills={filteredBills}
             isLoading={isLoadingBills}
-            page={billsPagination.page}
-            setPage={billsPagination.setPage}
-            setRowsPerPage={billsPagination.setRowsPerPage}
-            rowsPerPage={billsPagination.rowsPerPage}
             rowsCount={billsCount}
             onHandleFavorite={toggleFavoriteBill}
             onRowClick={handleRowClick}
@@ -84,12 +86,9 @@ const Home = () => {
       label: 'Favorite Bills',
       component: (
         <BillsTable
-          bills={favoriteBills}
+          {...favoriteBillsPagination}
+          bills={paginatedFavoriteBills}
           isLoading={isLoadingBills}
-          page={favoriteBillsPagination.page}
-          setPage={favoriteBillsPagination.setPage}
-          setRowsPerPage={favoriteBillsPagination.setRowsPerPage}
-          rowsPerPage={favoriteBillsPagination.rowsPerPage}
           rowsCount={favoriteBills.length}
           onHandleFavorite={toggleFavoriteBill}
           onRowClick={handleRowClick}
