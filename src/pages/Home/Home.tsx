@@ -10,8 +10,10 @@ import { type IMappedBill } from '@/types/bills'
 import { useTablePagination } from '@/hooks/useTablePagination/useTablePagination'
 import { removeHtmlTags } from '@/utils/functional'
 
+type BillType = 'all' | 'private' | 'public'
+
 const Home = () => {
-  const [type, setType] = useState<'all' | 'private' | 'public'>('all')
+  const [type, setType] = useState<BillType>('all')
   const [selectedBill, setSelectedBill] = useState<IMappedBill | null>(null)
 
   const billsPagination = useTablePagination()
@@ -27,7 +29,7 @@ const Home = () => {
   })
 
   const handleChange = (event: SelectChangeEvent) => {
-    setType(event.target.value as 'all' | 'private' | 'public')
+    setType(event.target.value as BillType)
   }
 
   const filteredBills = useMemo(() => {
@@ -47,7 +49,14 @@ const Home = () => {
       component: (
         <>
           <Box maxWidth={250} my={3}>
-            <Select labelId="bills-dropdown" id="bills-dropdown" value={type} onChange={handleChange}>
+            <Typography variant="caption">Filter bills by type</Typography>
+            <Select
+              labelId="bills-dropdown"
+              id="bills-dropdown"
+              value={type}
+              onChange={handleChange}
+              aria-label="Filter bills by type"
+            >
               {['All', 'Private', 'Public'].map((item) => (
                 <MenuItem value={item.toLowerCase()} key={item}>
                   {item}

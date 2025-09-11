@@ -55,7 +55,8 @@ const theme = createTheme({
               borderRadius: theme.borderRadius.small,
             },
             '&.Mui-focused': {
-              background: 'transparent',
+              borderRadius: 10,
+              background: theme.palette.primary.light,
               border: '2px solid transparent',
             },
             '& .MuiOutlinedInput-input': {

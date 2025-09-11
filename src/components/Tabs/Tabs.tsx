@@ -30,7 +30,7 @@ const Tabs = ({ tabs }: ITabsProps) => {
     <>
       <MuiTabs value={activeTab} onChange={handleTabChange} aria-label="Tab select" variant="scrollable">
         {tabs.map((tab, index) => (
-          <Tab key={index} label={tab.label} />
+          <Tab key={index} label={tab.label} id={`tab-${index}`} aria-controls={`tabpanel-${index}`} />
         ))}
       </MuiTabs>
 
