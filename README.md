@@ -1,6 +1,6 @@
 # Oireachtas Bills
 
-A React application for browsing and managing Irish Oireachtas bills. Built with TypeScript, Material-UI, and React Query.
+A React application for browsing Irish Oireachtas bills. Built with TypeScript, Material-UI, and React Query.
 
 ## Features
 
