@@ -1,11 +1,11 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { type BillsParams, type BillsResponse } from '@/types/bills'
+import { type IBillsParams, type IBillsResponse } from '@/types/bills'
 import { getOireachtasBills } from '@/api/bills/bills'
 import { getAllSponsors } from '@/utils/functional'
 
-export const useBills = (params: BillsParams) => {
-  const { data: billsResponse, isLoading: isLoadingBills } = useQuery<BillsResponse>({
+export const useBills = (params: IBillsParams) => {
+  const { data: billsResponse, isLoading: isLoadingBills } = useQuery<IBillsResponse>({
     queryKey: ['bills', params],
     queryFn: () => getOireachtasBills(params),
     placeholderData: keepPreviousData,

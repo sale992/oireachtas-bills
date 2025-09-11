@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest'
 import { useBills } from '../useBills'
 import { getOireachtasBills } from '@/api/bills/bills'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import type { BillsParams } from '@/types/bills'
+import type { IBillsParams } from '@/types/bills'
 import { mappedBillsMock, billsResponseMock } from '@/__mocks__/billsDataMock'
 
 vi.mock('@/api/bills/bills', () => ({
@@ -32,7 +32,7 @@ describe('useBills', () => {
   it('expects to fetch data from api and map properties', async () => {
     mockGetOireachtasBills.mockResolvedValue(billsResponseMock)
 
-    const params: BillsParams = { skip: 0, limit: 10 }
+    const params: IBillsParams = { skip: 0, limit: 10 }
 
     const { result } = renderHook(() => useBills(params), {
       wrapper,

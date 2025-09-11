@@ -6,13 +6,13 @@ import { useBillsStore } from '@/stores/useBillsStore'
 import Tabs from '@/components/Tabs/Tabs'
 import Modal from '@/components/Modal/Modal'
 import { useToggleState } from '@/hooks/useToggleState/useToggleState'
-import { type MappedBill } from '@/types/bills'
+import { type IMappedBill } from '@/types/bills'
 import { useTablePagination } from '@/hooks/useTablePagination/useTablePagination'
 import { removeHtmlTags } from '@/utils/functional'
 
 const Home = () => {
   const [type, setType] = useState<'all' | 'private' | 'public'>('all')
-  const [selectedBill, setSelectedBill] = useState<MappedBill | null>(null)
+  const [selectedBill, setSelectedBill] = useState<IMappedBill | null>(null)
 
   const billsPagination = useTablePagination()
   const favoriteBillsPagination = useTablePagination()
@@ -36,7 +36,7 @@ const Home = () => {
     return bills.filter((bill) => bill.billType.toLowerCase() === type)
   }, [bills, type])
 
-  const handleRowClick = (row: MappedBill) => {
+  const handleRowClick = (row: IMappedBill) => {
     setSelectedBill(row)
     toggleModal()
   }

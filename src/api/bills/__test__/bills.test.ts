@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { getOireachtasBills } from '../bills'
 import { apiOireachtas } from '@/services/axios'
-import type { BillsParams } from '@/types/bills'
+import type { IBillsParams } from '@/types/bills'
 import { billsResponseMock } from '@/__mocks__/billsDataMock'
 
 vi.mock('@/services/axios', () => ({
@@ -11,7 +11,7 @@ vi.mock('@/services/axios', () => ({
 }))
 
 describe('getOireachtasBills', () => {
-  const params: BillsParams = { skip: 0, limit: 3 }
+  const params: IBillsParams = { skip: 0, limit: 3 }
 
   beforeEach(() => {
     vi.clearAllMocks()

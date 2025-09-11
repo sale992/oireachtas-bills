@@ -1,12 +1,12 @@
-import { type MappedBill } from '@/types/bills'
+import { type IMappedBill } from '@/types/bills'
 import { TableCell, IconButton, TableRow } from '@mui/material'
 import theme from '@/theme/theme'
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd'
 
 interface IBillsTableRowProps {
-  row: MappedBill
-  onRowClick: (row: MappedBill) => void
-  onFavoriteClick: (row: MappedBill) => void
+  row: IMappedBill
+  onRowClick: (row: IMappedBill) => void
+  onFavoriteClick: (row: IMappedBill) => void
   isFavorite: (billId: string) => boolean
 }
 

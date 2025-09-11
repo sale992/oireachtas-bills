@@ -1,9 +1,9 @@
-export interface BillsParams {
+export interface IBillsParams {
   skip: number
   limit: number
 }
 
-export interface OireachtasBill {
+export interface IOireachtasBill {
   act: {
     actNo: string
     actYear: string
@@ -138,7 +138,7 @@ export interface OireachtasBill {
   }[]
 }
 
-export interface BillsResponse {
+export interface IBillsResponse {
   head: {
     counts: {
       resultCount: number
@@ -146,11 +146,11 @@ export interface BillsResponse {
     }
   }
   results: {
-    bill: OireachtasBill
+    bill: IOireachtasBill
   }[]
 }
 
-export interface MappedBill {
+export interface IMappedBill {
   id: string
   billNo: string
   billType: string

@@ -2,18 +2,18 @@ import { Typography, CircularProgress, TablePagination, TableContainer, TableBod
 
 import BillsTableHead from './components/BillsTableHead/BillsTableHead'
 import BillsTableRow from './components/BillsTableRow/BillsTableRow'
-import { type MappedBill } from '@/types/bills'
+import { type IMappedBill } from '@/types/bills'
 
 export interface IBillsTableProps {
-  bills?: MappedBill[]
+  bills?: IMappedBill[]
   isLoading?: boolean
   page: number
   rowsCount: number
   rowsPerPage: number
   setPage: (page: number) => void
   setRowsPerPage: (row: number) => void
-  onHandleFavorite: (row: MappedBill) => void
-  onRowClick: (row: MappedBill) => void
+  onHandleFavorite: (row: IMappedBill) => void
+  onRowClick: (row: IMappedBill) => void
   isFavorite: (billId: string) => boolean
 }
 

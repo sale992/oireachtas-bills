@@ -4,9 +4,7 @@ import { palette } from './palette'
 const theme = createTheme({
   borderRadius: {
     small: 8,
-    medium: 16,
     large: 24,
-    xl: 99,
   },
   palette,
   typography: (palette) => ({
