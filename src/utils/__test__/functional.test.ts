@@ -1,30 +1,41 @@
 import { describe, expect, it } from 'vitest'
 import { removeHtmlTags, getAllSponsors } from '@/utils/functional'
-import { type OireachtasBill } from '@/types/bills'
+import { type IOireachtasBill } from '@/types/bills'
 
 describe('removeHtmlTags', () => {
-  it('expects to remove html tags from string', () => {
-    const testString = '<p>This is <strong>test</strong> string</p>'
-
-    const res = removeHtmlTags(testString)
-
-    expect(res).toBe('This is test string')
+  it('expects to return empty string', () => {
+    expect(removeHtmlTags('')).toBe('')
   })
 
-  it('expects to return empty string', () => {
-    const res = removeHtmlTags('')
-
-    expect(res).toBe('')
+  it('expects to strip tags and entities', () => {
+    const input = '<p>Test&nbsp;string'
+    expect(removeHtmlTags(input)).toBe('Test string')
   })
 })
 
 describe('getAllSponsors', () => {
-  it('expect to return all sponsors separataed by comma', () => {
-    const sponsors: OireachtasBill['sponsors'] = [
-      { sponsor: { as: { showAs: 'John Doe', uri: null }, by: { showAs: null, uri: null }, isPrimary: true } },
-      { sponsor: { as: { showAs: 'Jane Smith', uri: null }, by: { showAs: null, uri: null }, isPrimary: false } },
+  it('expects to return all sponsors separated by comma', () => {
+    const sponsors: IOireachtasBill['sponsors'] = [
+      {
+        sponsor: {
+          as: { showAs: 'Minister for Justice', uri: null },
+          by: { showAs: null, uri: null },
+          isPrimary: true,
+        },
+      },
+      {
+        sponsor: {
+          as: { showAs: 'Minister for Environment', uri: null },
+          by: { showAs: null, uri: null },
+          isPrimary: false,
+        },
+      },
     ]
 
-    expect(getAllSponsors(sponsors)).toBe('John Doe, Jane Smith')
+    expect(getAllSponsors(sponsors)).toBe('Minister for Justice, Minister for Environment')
+  })
+
+  it('expects to return No sponsor text if sponsors are not provided', () => {
+    expect(getAllSponsors([])).toBe('No sponsor')
   })
 })

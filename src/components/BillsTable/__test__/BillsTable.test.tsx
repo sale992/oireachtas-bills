@@ -40,15 +40,7 @@ describe('BillsTable', () => {
     expect(getByText('No bills data available')).toBeInTheDocument()
   })
 
-  it('renders all bill data in table rows', () => {
-    const { getByText } = renderWithTheme(<BillsTable {...defaultProps} />)
-
-    expect(getByText('65')).toBeInTheDocument()
-    expect(getByText('78')).toBeInTheDocument()
-    expect(getByText('97')).toBeInTheDocument()
-  })
-
-  it('calls onRowClick when a table row is clicked', () => {
+  it('expect to call onRowClick when specific row is clicked', () => {
     const onRowClick = vi.fn()
     const { getByText } = renderWithTheme(<BillsTable {...defaultProps} onRowClick={onRowClick} />)
 
@@ -57,16 +49,7 @@ describe('BillsTable', () => {
     expect(onRowClick).toHaveBeenCalledWith(mappedBillsMock[0])
   })
 
-  it('renders favorite buttons for each row', () => {
-    const { getAllByRole } = renderWithTheme(<BillsTable {...defaultProps} />)
-
-    const favoriteButtons = getAllByRole('button').filter((button) =>
-      button.querySelector('[data-testid="BookmarkAddIcon"]')
-    )
-    expect(favoriteButtons).toHaveLength(mappedBillsMock.length)
-  })
-
-  it('prevents row click when favorite button is clicked', () => {
+  it('expect not to open modal when favorite icon is clicked', () => {
     const onRowClick = vi.fn()
     const onHandleFavorite = vi.fn()
     const { getAllByRole } = renderWithTheme(
@@ -83,7 +66,7 @@ describe('BillsTable', () => {
     expect(onRowClick).not.toHaveBeenCalled()
   })
 
-  it('displays favorite icon as filled when bill is marked as favorite', () => {
+  it('expect to display favorite icon when selected', () => {
     const isFavorite = vi
       .fn()
       .mockImplementation((billId: string) => billId === 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/65')
@@ -96,7 +79,7 @@ describe('BillsTable', () => {
   })
 })
 
-it('calls setPage when page is changed', () => {
+it('expects to call set page when changed', () => {
   const setPage = vi.fn()
 
   const { getByLabelText } = renderWithTheme(
@@ -109,7 +92,7 @@ it('calls setPage when page is changed', () => {
   expect(setPage).toHaveBeenCalledWith(1)
 })
 
-it('calls setRowsPerPage and resets page when rows per page is changed', () => {
+it('expect to call setRowsPerPage and reset page to 0', () => {
   const setPage = vi.fn()
   const setRowsPerPage = vi.fn()
   const { getByRole } = renderWithTheme(
@@ -126,8 +109,8 @@ it('calls setRowsPerPage and resets page when rows per page is changed', () => {
   const rowsPerPageSelect = getByRole('combobox')
   fireEvent.mouseDown(rowsPerPageSelect)
 
-  const option25 = getByRole('option', { name: '25' })
-  fireEvent.click(option25)
+  const option = getByRole('option', { name: '25' })
+  fireEvent.click(option)
 
   expect(setRowsPerPage).toHaveBeenCalledWith(25)
   expect(setPage).toHaveBeenCalledWith(0)

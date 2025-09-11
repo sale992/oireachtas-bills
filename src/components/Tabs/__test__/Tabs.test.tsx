@@ -21,14 +21,6 @@ describe('Tabs', () => {
         </Box>
       ),
     },
-    {
-      label: 'Tab 3',
-      component: (
-        <Box data-testid="tab3-content">
-          <Typography>Content 3</Typography>
-        </Box>
-      ),
-    },
   ]
 
   it('renders all tab labels', () => {

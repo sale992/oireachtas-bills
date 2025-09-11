@@ -43,18 +43,20 @@ describe('Home page', () => {
     expect(await findByText('Private')).toBeInTheDocument()
   })
 
-  it('opens modal when bill row is clicked', () => {
+  it('expects to open modal when table row is clicked', () => {
     const { getByText } = render(<Home />)
+
     const firstBillRow = getByText(mappedBillsMock[0].billNo)
+
     fireEvent.click(firstBillRow)
 
     expect(getByText(/english/i)).toBeInTheDocument()
     expect(getByText(/gaeilge/i)).toBeInTheDocument()
-
   })
 
-  it('expects to render two tab', () => {
+  it('expects to render tabs', () => {
     const { getByRole } = render(<Home />)
+    
     expect(getByRole('tab', { name: /all bills/i })).toBeInTheDocument()
     expect(getByRole('tab', { name: /favorite bills/i })).toBeInTheDocument()
   })

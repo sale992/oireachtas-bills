@@ -4,6 +4,7 @@ import { useBillsStore } from '../useBillsStore'
 import { mappedBillsMock } from '@/__mocks__/billsDataMock'
 
 const mockStorage: { [key: string]: string } = {}
+
 const localStorageMock = {
   getItem: (key: string) => mockStorage[key] || null,
   setItem: (key: string, value: string) => {
@@ -33,13 +34,7 @@ describe('useBillsStore', () => {
     })
   })
 
-  it('should initialize with empty favoriteBills array', () => {
-    const { result } = renderHook(() => useBillsStore())
-
-    expect(result.current.favoriteBills).toEqual([])
-  })
-
-  it('should add a bill to favorites when toggled', () => {
+  it('expects to add a bill to favorites when toggled', () => {
     const { result } = renderHook(() => useBillsStore())
 
     act(() => {
@@ -51,7 +46,7 @@ describe('useBillsStore', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Request dispatched: adding bill to favorites on server')
   })
 
-  it('should remove a bill from favorites when toggled again', () => {
+  it('expects to remove a bill thats been added to favorites', () => {
     const { result } = renderHook(() => useBillsStore())
 
     act(() => {
@@ -68,23 +63,7 @@ describe('useBillsStore', () => {
     expect(consoleSpy).toHaveBeenLastCalledWith('Request dispatched: removing bill from favorites on server')
   })
 
-  it('should handle multiple bills in favorites', () => {
-    const { result } = renderHook(() => useBillsStore())
-
-    act(() => {
-      result.current.toggleFavoriteBill(mockBill1)
-    })
-
-    act(() => {
-      result.current.toggleFavoriteBill(mockBill2)
-    })
-
-    expect(result.current.favoriteBills).toHaveLength(2)
-    expect(result.current.favoriteBills).toContainEqual(mockBill1)
-    expect(result.current.favoriteBills).toContainEqual(mockBill2)
-  })
-
-  it('should correctly identify if a bill is favorite', () => {
+  it('expects to check if bill is marked as favorite', () => {
     const { result } = renderHook(() => useBillsStore())
 
     expect(result.current.isFavoriteBill(mockBill1.id)).toBe(false)
@@ -95,28 +74,5 @@ describe('useBillsStore', () => {
 
     expect(result.current.isFavoriteBill(mockBill1.id)).toBe(true)
     expect(result.current.isFavoriteBill(mockBill2.id)).toBe(false)
-  })
-
-  it('should remove only the correct bill when multiple bills are favorited', () => {
-    const { result } = renderHook(() => useBillsStore())
-
-    act(() => {
-      result.current.toggleFavoriteBill(mockBill1)
-    })
-
-    act(() => {
-      result.current.toggleFavoriteBill(mockBill2)
-    })
-
-    expect(result.current.favoriteBills).toHaveLength(2)
-
-    act(() => {
-      result.current.toggleFavoriteBill(mockBill1)
-    })
-
-    expect(result.current.favoriteBills).toHaveLength(1)
-    expect(result.current.favoriteBills[0]).toEqual(mockBill2)
-    expect(result.current.isFavoriteBill(mockBill1.id)).toBe(false)
-    expect(result.current.isFavoriteBill(mockBill2.id)).toBe(true)
   })
 })

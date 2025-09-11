@@ -6,12 +6,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { IBillsParams } from '@/types/bills'
 import { mappedBillsMock, billsResponseMock } from '@/__mocks__/billsDataMock'
 
-vi.mock('@/api/bills/bills', () => ({
-  getOireachtasBills: vi.fn(),
-}))
-
-const mockGetOireachtasBills = getOireachtasBills as Mock<typeof getOireachtasBills>
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -19,6 +13,12 @@ const queryClient = new QueryClient({
     },
   },
 })
+
+vi.mock('@/api/bills/bills', () => ({
+  getOireachtasBills: vi.fn(),
+}))
+
+const mockGetOireachtasBills = getOireachtasBills as Mock<typeof getOireachtasBills>
 
 const wrapper = ({ children }: { children: React.ReactNode }) => {
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
