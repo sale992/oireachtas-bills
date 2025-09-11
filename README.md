@@ -183,7 +183,7 @@ The application integrates with the [Oireachtas API](https://api.oireachtas.ie/)
 - React Query for efficient data fetching
 - Memoized components and calculations
 
-## 📝 Available Scripts
+## Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
