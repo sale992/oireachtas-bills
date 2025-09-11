@@ -1,21 +1,10 @@
-import {
-  Typography,
-  CircularProgress,
-  TableRow,
-  TablePagination,
-  TableContainer,
-  TableCell,
-  TableBody,
-  Table,
-  IconButton,
-  Stack,
-} from '@mui/material'
+import { Typography, CircularProgress, TablePagination, TableContainer, TableBody, Table, Stack } from '@mui/material'
 
 import BillsTableHead from './components/BillsTableHead/BillsTableHead'
+import BillsTableRow from './components/BillsTableRow/BillsTableRow'
 import { type MappedBill } from '@/types/bills'
-import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd'
-import theme from '@/theme/theme'
-interface IBillsTableProps {
+
+export interface IBillsTableProps {
   bills?: MappedBill[]
   isLoading?: boolean
   page: number
@@ -47,32 +36,13 @@ const BillsTable = (props: IBillsTableProps) => {
   }
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value))
+    setRowsPerPage(Number(event.target.value))
     setPage(0)
   }
 
-  const handleFavoriteClick = (e: React.MouseEvent<HTMLButtonElement>, row: MappedBill) => {
-    e.stopPropagation()
-    onHandleFavorite(row)
-  }
+  if (isLoading) return <LoadingState />
 
-  if (isLoading) {
-    return (
-      <Stack alignItems="center" justifyContent="center" height={400}>
-        <CircularProgress />
-      </Stack>
-    )
-  }
-
-  if (!bills.length) {
-    return (
-      <Stack justifyContent="center" alignItems="center" height={400}>
-        <Typography variant="h6" color="textSecondary">
-          No bills data available
-        </Typography>
-      </Stack>
-    )
-  }
+  if (!bills.length) return <NoData />
 
   return (
     <>
@@ -80,37 +50,15 @@ const BillsTable = (props: IBillsTableProps) => {
         <Table aria-labelledby="Bills" size="medium">
           <BillsTableHead />
           <TableBody>
-            {bills.map((row, index) => {
-              const labelId = `enhanced-table-checkbox-${index}`
-              const isMarkedAsFavorite = isFavorite(row.id)
-              return (
-                <TableRow
-                  hover
-                  onClick={() => onRowClick(row)}
-                  role="checkbox"
-                  tabIndex={-1}
-                  key={row.id}
-                  sx={{ cursor: 'pointer' }}
-                >
-                  <TableCell id={labelId} width={80}>
-                    {row.billNo}
-                  </TableCell>
-                  <TableCell width={80}>{row.billType}</TableCell>
-                  <TableCell width={80}>{row.status}</TableCell>
-                  <TableCell>{row.sponsor}</TableCell>
-                  <TableCell align="right">
-                    <IconButton onClick={(e) => handleFavoriteClick(e, row)}>
-                      <BookmarkAddIcon
-                        sx={{
-                          fill: isMarkedAsFavorite ? theme.palette.primary.main : 'transparent',
-                          stroke: theme.palette.primary.main,
-                        }}
-                      />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              )
-            })}
+            {bills.map((row) => (
+              <BillsTableRow
+                key={row.id}
+                row={row}
+                onRowClick={onRowClick}
+                onFavoriteClick={onHandleFavorite}
+                isFavorite={isFavorite}
+              />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -129,3 +77,21 @@ const BillsTable = (props: IBillsTableProps) => {
 }
 
 export default BillsTable
+
+const LoadingState = () => {
+  return (
+    <Stack alignItems="center" justifyContent="center" height={400}>
+      <CircularProgress />
+    </Stack>
+  )
+}
+
+const NoData = () => {
+  return (
+    <Stack justifyContent="center" alignItems="center" height={400}>
+      <Typography variant="h6" color="textSecondary">
+        No bills data available
+      </Typography>
+    </Stack>
+  )
+}

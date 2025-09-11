@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { getOireachtasBills } from '../bills'
 import { apiOireachtas } from '@/services/axios'
-import type { BillsParams, BillsResponse } from '@/types/bills'
+import type { BillsParams } from '@/types/bills'
+import { billsResponseMock } from '@/__mocks__/billsDataMock'
 
 vi.mock('@/services/axios', () => ({
   apiOireachtas: {
@@ -10,83 +11,19 @@ vi.mock('@/services/axios', () => ({
 }))
 
 describe('getOireachtasBills', () => {
-  const params: BillsParams = { skip: 0, limit: 10 }
-
-  const mockResponse: BillsResponse = {
-    head: {
-      counts: {
-        resultCount: 1,
-        billCount: 1,
-      },
-    },
-    results: [
-      {
-        bill: {
-          act: {
-            actNo: '1',
-            actYear: '2023',
-            dateSigned: '2023-01-01',
-            longTitleEn: 'An Act to test',
-            longTitleGa: 'Acht tástála',
-            shortTitleEn: 'Test Act',
-            shortTitleGa: 'Acht Tástála',
-            statutebookURI: 'https://example.com/statutebook',
-            uri: 'https://example.com/act',
-          },
-          amendmentLists: [],
-          billNo: 'B1',
-          billType: 'Government',
-          billTypeURI: 'https://example.com/billtype',
-          billYear: '2023',
-          debates: [],
-          events: [],
-          lastUpdated: '2023-02-01',
-          longTitleEn: 'An Act to test',
-          longTitleGa: 'Acht tástála',
-          method: 'Method',
-          methodURI: 'https://example.com/method',
-          mostRecentStage: {
-            event: {
-              chamber: null,
-              dates: [],
-              house: null,
-              progressStage: 1,
-              showAs: 'Stage 1',
-              stageCompleted: false,
-              stageOutcome: null,
-              stageURI: 'https://example.com/stage',
-              uri: 'https://example.com/stage',
-            },
-          },
-          originHouse: { showAs: 'Dáil Éireann', uri: 'https://example.com/origin' },
-          originHouseURI: 'https://example.com/origin',
-          relatedDocs: [],
-          shortTitleEn: 'Test Act',
-          shortTitleGa: 'Acht Tástála',
-          source: 'Source',
-          sourceURI: 'https://example.com/source',
-          sponsors: [],
-          stages: [],
-          status: 'In Progress',
-          statusURI: 'https://example.com/status',
-          uri: 'https://example.com/bill',
-          versions: [],
-        },
-      },
-    ],
-  }
+  const params: BillsParams = { skip: 0, limit: 3 }
 
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
   it('expects to fetch data', async () => {
-    vi.mocked(apiOireachtas.get).mockResolvedValueOnce({ data: mockResponse })
+    vi.mocked(apiOireachtas.get).mockResolvedValueOnce({ data: billsResponseMock })
 
     const result = await getOireachtasBills(params)
 
     expect(apiOireachtas.get).toHaveBeenCalledWith('/legislation', { params })
-    expect(result).toEqual(mockResponse)
+    expect(result).toEqual(billsResponseMock)
   })
 
   it('expects to throw an error', async () => {
