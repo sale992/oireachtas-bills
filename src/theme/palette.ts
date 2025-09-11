@@ -11,11 +11,9 @@ export const palette: PaletteOptions = {
     secondary: '#4F544F',
     disabled: '#72757B',
   },
-  error: {
-    main: '#D73D19',
-  },
-  background: {
-    default: '#F4F4F4',
-    paper: '#FFF',
-  },
+  
+  // background: {
+  //   default: '#F4F4F4',
+  //   paper: '#FFF',
+  // },
 }

@@ -71,6 +71,7 @@ const BillsTable = (props: IBillsTableProps) => {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        sx={{ mt: 3 }}
       />
     </>
   )

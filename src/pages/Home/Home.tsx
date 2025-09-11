@@ -46,7 +46,7 @@ const Home = () => {
       label: 'All Bills',
       component: (
         <>
-          <Box maxWidth={250}>
+          <Box maxWidth={250} my={3}>
             <Select labelId="bills-dropdown" id="bills-dropdown" value={type} onChange={handleChange}>
               {['All', 'Private', 'Public'].map((item) => (
                 <MenuItem value={item.toLowerCase()} key={item}>

@@ -21,22 +21,3 @@ declare module '@mui/system' {
     }
   }
 }
-
-declare module '@mui/material/styles' {
-  interface TypographyVariants {
-    title: React.CSSProperties
-    text: React.CSSProperties
-  }
-
-  interface TypographyVariantsOptions {
-    title?: React.CSSProperties
-    text?: React.CSSProperties
-  }
-}
-
-declare module '@mui/material/Typography' {
-  interface TypographyPropsVariantOverrides {
-    title: true
-    text: true
-  }
-}

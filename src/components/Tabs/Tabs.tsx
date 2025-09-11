@@ -1,7 +1,6 @@
-import theme from '../../theme/theme'
-import { Box, Tab, Tabs as MuiTabs, styled } from '@mui/material'
+import { Box, Tab, Tabs as MuiTabs } from '@mui/material'
 import React, { useState } from 'react'
-import Show from '../Show/Show'
+import Show from '@/components/Show/Show'
 
 interface ITabPanelProps {
   children?: React.ReactNode
@@ -12,30 +11,6 @@ interface ITabPanelProps {
 interface ITabsProps {
   tabs: { label: string; component: React.ReactNode }[]
 }
-
-const CustomTabControl = styled(MuiTabs)({
-  marginBottom: 20,
-  '& .MuiTab-root': {
-    borderRadius: theme.borderRadius.large,
-    fontSize: theme.typography.pxToRem(16),
-    textTransform: 'capitalize',
-    transition: 'all 0.5s ease',
-    marginRight: 15,
-    '&:nth-of-type(4)': {
-      textTransform: 'unset',
-    },
-    '&:hover': {
-      background: theme.palette.primary.light,
-    },
-  },
-  '& .MuiTabs-indicator': {
-    backgroundColor: 'transparent',
-  },
-  '& .Mui-selected': {
-    backgroundColor: theme.palette.primary.light,
-    color: theme.palette.primary.main,
-  },
-})
 
 const CustomTabPanel = (props: ITabPanelProps) => {
   const { children, value, index, ...other } = props
@@ -53,11 +28,11 @@ const Tabs = ({ tabs }: ITabsProps) => {
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => setActiveTab(newValue)
   return (
     <>
-      <CustomTabControl value={activeTab} onChange={handleTabChange} aria-label="Tab select" variant="scrollable">
+      <MuiTabs value={activeTab} onChange={handleTabChange} aria-label="Tab select" variant="scrollable">
         {tabs.map((tab, index) => (
           <Tab key={index} label={tab.label} />
         ))}
-      </CustomTabControl>
+      </MuiTabs>
 
       {tabs.map((tab, index) => (
         <CustomTabPanel key={index} value={activeTab} index={index}>

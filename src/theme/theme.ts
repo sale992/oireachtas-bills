@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material/styles'
-
 import { palette } from './palette'
 
 const theme = createTheme({
@@ -43,13 +42,32 @@ const theme = createTheme({
         root: ({ theme }) => ({
           display: 'flex',
           border: '2px solid transparent',
+          borderRadius: 10,
           fontSize: theme.typography.pxToRem(16),
           ':hover': {
-            // border: `2px solid ${theme.palette.primary.main}`,
+            border: `2px solid ${theme.palette.primary.light}`,
           },
           '&.Mui-focused': {
-            // background: theme.palette.primary.light,
-            // border: `2px solid ${theme.palette.primary.main}`,
+            background: theme.palette.primary.light,
+          },
+
+          '&.MuiOutlinedInput-root': {
+            ':hover': {
+              border: '2px solid transparent',
+              borderRadius: theme.borderRadius.small,
+            },
+            '&.Mui-focused': {
+              background: 'transparent',
+              border: '2px solid transparent',
+            },
+            '& .MuiOutlinedInput-input': {
+              padding: 0,
+              fontSize: theme.typography.pxToRem(18),
+              color: theme.palette.text.primary,
+            },
+            '& .MuiOutlinedInput-notchedOutline': {
+              border: 'none',
+            },
           },
         }),
       },
@@ -58,45 +76,52 @@ const theme = createTheme({
     MuiSelect: {
       styleOverrides: {
         select: ({ theme }) => ({
+          '&.Mui-focused': {
+            background: theme.palette.primary.light,
+          },
           '&&': {
             minHeight: 'unset',
             padding: theme.spacing(1.5, 3, 1.5, 1.5),
             borderRadius: theme.borderRadius.small,
             border: `1px solid ${theme.palette.primary.main}`,
-            [theme.breakpoints.down('md')]: {
-              paddingRight: theme.spacing(4),
+            ':hover': {
+              outline: `4px solid ${theme.palette.primary.light}`,
             },
-            '& .MuiTypography-root': {
-              margin: 0,
-              fontWeight: 400,
-            },
+          },
+        }),
+      },
+    },
+
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          marginBottom: 20,
+          '& .MuiTabs-indicator': {
+            backgroundColor: 'transparent',
+          },
+        },
+      },
+    },
+
+    MuiTab: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: theme.borderRadius.large,
+          fontSize: theme.typography.pxToRem(16),
+          textTransform: 'capitalize',
+          transition: 'all 0.5s ease',
+          marginRight: 15,
+          '&:hover': {
+            background: theme.palette.primary.light,
+          },
+          '&.Mui-selected': {
+            backgroundColor: theme.palette.primary.light,
+            color: theme.palette.primary.main,
           },
         }),
       },
     },
   },
 })
-
-theme.typography = {
-  ...theme.typography,
-  title: {
-    fontWeight: 400,
-    fontSize: theme.typography.pxToRem(32),
-    lineHeight: theme.typography.pxToRem(32),
-    [theme.breakpoints.down('md')]: {
-      fontSize: theme.typography.pxToRem(25),
-      lineHeight: theme.typography.pxToRem(25),
-    },
-  },
-  text: {
-    fontWeight: 400,
-    fontSize: theme.typography.pxToRem(20),
-    lineHeight: theme.typography.pxToRem(25),
-    [theme.breakpoints.down('md')]: {
-      fontSize: theme.typography.pxToRem(14),
-      lineHeight: theme.typography.pxToRem(14),
-    },
-  },
-}
 
 export default theme
