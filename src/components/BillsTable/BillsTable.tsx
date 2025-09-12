@@ -1,5 +1,5 @@
-import NoData from '@/components/BillsTable/components/NoData/NoData'
-import RenderTable from '@/components/BillsTable/components/RenderTable/RenderTable'
+import NoData from '@/components/BillsTable/components/NoData'
+import RenderTable from '@/components/BillsTable/components/RenderTable'
 import LoadingState from '@/components/LoadingState/LoadingState'
 import { type IMappedBill } from '@/types/bills'
 import { TablePagination } from '@mui/material'

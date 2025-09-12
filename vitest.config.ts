@@ -17,7 +17,8 @@ export default defineConfig({
         'src/main.tsx',
         'src/App.tsx',
         'src/services/**',
-        'src/types'
+        'src/types',
+        'src/theme/*'
       ]
     }
   },

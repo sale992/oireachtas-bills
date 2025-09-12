@@ -1,8 +1,8 @@
 import type { IMappedBill } from '@/types/bills'
 import { TableContainer, Table, TableBody } from '@mui/material'
 
-import BillsTableHead from '../BillsTableHead/BillsTableHead'
-import BillsTableRow from '../BillsTableRow/BillsTableRow'
+import BillsTableHead from './BillsTableHead'
+import BillsTableRow from './BillsTableRow'
 
 interface IRenderTableProps {
   bills: IMappedBill[]
