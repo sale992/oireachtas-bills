@@ -18,7 +18,7 @@ A React application for browsing Irish Oireachtas bills. Built with TypeScript, 
 - **HTTP Client**: Axios
 - **Build Tool**: Vite
 - **Testing**: Vitest, React Testing Library
-- **Linting**: ESLint, TypeScript ESLint
+- **Linting**: ESLint, TypeScript ESLint, Prettier
 
 ## Prerequisites
 
@@ -79,28 +79,29 @@ The project includes comprehensive test coverage for:
 
 ```
 src/
-├── api/                    # API layer
-│   └── bills/              # Bills API endpoints
-├── components/             # UI components
-│   ├── BillsTable/         # Main bills table component
-│   ├── Modal/              # Modal component
-│   ├── Tabs/               # Tab navigation component
-│   └── Show/               # Conditional rendering component
-├── hooks/                  # Custom React hooks
-│   ├── useBills/           # Bills data fetching hook
-│   ├── useTablePagination/ # Table pagination hook
-│   └── useToggleState/     # Toggle state hook
-├── pages/                  # Page components
-│   └── Home/               # Main application page (Home page without React Router)
-├── services/               # External service configurations
-│   ├── axios/              # HTTP client setup
-│   └── queryClient/        # React Query
-├── stores/                 # Global state management
-│   └── useBillsStore.ts    # Zustand store for favorites
-├── theme/                  # Material-UI theme configuration
-├── types/                  # TypeScript types
-├── utils/                  # Utility functions
-└── __mocks__/              # Test data
+├── api/                     # API layer
+│   └── bills/               # Bills API endpoint
+├── components/              # Reusable UI components
+│   ├── BillsTable/          # Main bills table component
+│   ├── LoadingState/        # Loading indicator
+│   ├── Modal/               # Modal dialog component
+│   ├── Show/                # Conditional rendering component
+│   ├── Tabs/                # Tab navigation component
+│   └── TypeSelect/          # Bill type selector
+├── hooks/                   # Custom hooks
+│   ├── useBills/            # Bills data fetching hook
+│   ├── useTablePagination/  # Table pagination logic
+│   └── useToggleState/      # Toggle state management
+├── pages/                   # Page components
+│   └── Home/                # Main application page
+├── services/                # External services
+│   ├── axios/               # HTTP client configuration
+│   └── queryClient/         # React Query configuration
+├── stores/                  # Global state management
+│   └── useBillsStore.ts     # Bills store (Zustand)
+├── theme/                   # Material-UI theme configuration
+├── types/                   # TypeScript types
+└── utils/                   # Utility functions
 ```
 
 ## UI Components
@@ -151,9 +152,8 @@ src/
 
 The application integrates with the [Oireachtas API](https://api.oireachtas.ie/) to fetch:
 
-- Bill information
+- Bill information from /legislation endpoint
 - Pagination data
-- Real-time updates
 
 ### API Endpoints Used
 
@@ -168,25 +168,19 @@ The application integrates with the [Oireachtas API](https://api.oireachtas.ie/)
 
 ### Pagination
 
-- Server-side pagination
+- Server-side pagination for bills fetched from API, Client-side pagination for favorite bills
 - Configurable page sizes (10, 25, 50)
 - Smooth navigation between pages
 
 ### Filtering
 
 - Client-side filtering by bill type (/legislation API doesn't support filtering with query parameter)
-- Maintains pagination state
-- Real-time filter updates
-
-##  Performance Optimizations
-
-- React Query for efficient data fetching
-- Memoized components and calculations
 
 ## Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
+- `npm run test` - Run tests with coverage
 - `npm run lint` - Run ESLint
-- `npm test` - Run tests with coverage
+- `npm run fmt` - Format code with Prettier

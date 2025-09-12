@@ -11,5 +11,14 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+    coverage: {
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: [
+        'src/main.tsx',
+        'src/App.tsx',
+        'src/services/**',
+        'src/types'
+      ]
+    }
   },
 })
