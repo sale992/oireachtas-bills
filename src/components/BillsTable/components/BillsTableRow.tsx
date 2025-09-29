@@ -24,11 +24,11 @@ const BillsTableRow = ({ row, onRowClick }: IBillsTableRowProps) => {
 
   return (
     <TableRow hover onClick={() => onRowClick(row)} key={row.id} sx={{ cursor: 'pointer' }}>
-      <TableCell width={80}>{row.billNo}</TableCell>
+      <TableCell width={50}>{row.billNo}</TableCell>
 
-      <TableCell width={80}>{row.billType}</TableCell>
+      <TableCell width={60}>{row.billType}</TableCell>
 
-      <TableCell width={80}>
+      <TableCell width={80} align="center">
         <RowStatus statusType={row.status}></RowStatus>
       </TableCell>
 
