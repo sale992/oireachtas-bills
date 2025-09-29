@@ -1,3 +1,4 @@
+// import { IMappedBill } from "@/types/bills"
 export const mappedBillsMock = [
   {
     id: 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/65',
@@ -32,7 +33,7 @@ export const mappedBillsMock = [
     longTitleGa:
       '<p>Bille dá ngairtear Acht do leasú Acht an Ombudsman Seirbhísí Airgeadais agus Pinsean, 2017; do dhéanamh socrú maidir le caiteachais arna dtabhú ag an Ombudsman i gcomhlíonadh a fheidhmeanna nó a feidhmeanna a ríomh; do dhéanamh socrú maidir le daoine breise a cheapadh chun gníomhú mar Ombudsman; do dhéanamh socrú breise maidir le himscrúduithe a sheoladh; do dhéanamh socrú maidir le leasuithe iarmhartacha áirithe eile; agus do dhéanamh socrú i dtaobh nithe gaolmhara.</p>\n',
   },
-]
+] as const
 
 export const billsResponseMock = {
   head: {

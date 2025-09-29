@@ -88,6 +88,8 @@ src/
 │   ├── Show/                # Conditional rendering component
 │   ├── Tabs/                # Tab navigation component
 │   └── TypeSelect/          # Bill type selector
+├── constants/               # Application constants
+│   └── billType.ts          # Bill type constants
 ├── hooks/                   # Custom hooks
 │   ├── useBills/            # Bills data fetching hook
 │   ├── useTablePagination/  # Table pagination logic
@@ -100,6 +102,9 @@ src/
 ├── stores/                  # Global state management
 │   └── useBillsStore.ts     # Bills store (Zustand)
 ├── theme/                   # Material-UI theme configuration
+│   ├── index.d.ts           # Theme type definitions
+│   ├── palette.ts           # Color palette configuration
+│   └── theme.ts             # Main theme configuration
 ├── types/                   # TypeScript types
 └── utils/                   # Utility functions
 ```
@@ -113,6 +118,7 @@ src/
 - Includes favorite functionality
 - Loading State
 - No data state
+- BillTypeStatus
 
 ### Modal
 
