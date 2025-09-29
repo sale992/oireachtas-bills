@@ -1,13 +1,10 @@
 import BillsTable from '@/components/BillsTable/BillsTable'
-import Modal from '@/components/Modal/Modal'
 import Tabs from '@/components/Tabs/Tabs'
 import TypeSelect from '@/components/TypeSelect/TypeSelect'
 import { useBills } from '@/hooks/useBills/useBills'
 import { useTablePagination } from '@/hooks/useTablePagination/useTablePagination'
-import { useToggleState } from '@/hooks/useToggleState/useToggleState'
 import { useBillsStore } from '@/stores/useBillsStore'
-import { type IMappedBill } from '@/types/bills'
-import { paginate, removeHtmlTags } from '@/utils/functional'
+import { paginate } from '@/utils/functional'
 import { Container, Typography } from '@mui/material'
 import { useMemo, useState } from 'react'
 
@@ -15,14 +12,11 @@ type BillType = 'all' | 'private' | 'public'
 
 const Home = () => {
   const [type, setType] = useState<BillType>('all')
-  const [selectedBill, setSelectedBill] = useState<IMappedBill | null>(null)
 
   const billsPagination = useTablePagination()
   const favoriteBillsPagination = useTablePagination()
 
-  const [openModal, toggleModal] = useToggleState()
-
-  const { favoriteBills } = useBillsStore()
+  const favoriteBills = useBillsStore((state) => state.favoriteBills)
 
   const { bills, isLoadingBills, billsCount } = useBills({
     limit: billsPagination.rowsPerPage,
@@ -40,11 +34,6 @@ const Home = () => {
     [favoriteBills, favoriteBillsPagination.page, favoriteBillsPagination.rowsPerPage]
   )
 
-  const handleRowClick = (row: IMappedBill) => {
-    setSelectedBill(row)
-    toggleModal()
-  }
-
   const tabs = [
     {
       label: 'All Bills',
@@ -56,37 +45,15 @@ const Home = () => {
             options={['All', 'Private', 'Public']}
           />
 
-          <BillsTable
-            {...billsPagination}
-            bills={filteredBills}
-            isLoading={isLoadingBills}
-            rowsCount={billsCount}
-            onRowClick={handleRowClick}
-          />
+          <BillsTable {...billsPagination} bills={filteredBills} rowsCount={billsCount} isLoading={isLoadingBills} />
         </>
       ),
     },
     {
       label: 'Favorite Bills',
       component: (
-        <BillsTable
-          {...favoriteBillsPagination}
-          bills={paginatedFavoriteBills}
-          rowsCount={favoriteBills.length}
-          onRowClick={handleRowClick}
-        />
+        <BillsTable {...favoriteBillsPagination} bills={paginatedFavoriteBills} rowsCount={favoriteBills.length} />
       ),
-    },
-  ]
-
-  const modalTabs = [
-    {
-      label: 'English',
-      component: <Typography variant="body1">{removeHtmlTags(selectedBill?.longTitleEn ?? '')}</Typography>,
-    },
-    {
-      label: 'Gaeilge',
-      component: <Typography variant="body1">{removeHtmlTags(selectedBill?.longTitleGa ?? '')}</Typography>,
     },
   ]
 
@@ -97,10 +64,6 @@ const Home = () => {
       </Typography>
 
       <Tabs tabs={tabs} />
-
-      <Modal open={openModal} onClose={toggleModal}>
-        <Tabs tabs={modalTabs} />
-      </Modal>
     </Container>
   )
 }

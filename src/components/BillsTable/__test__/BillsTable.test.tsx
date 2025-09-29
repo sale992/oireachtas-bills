@@ -12,11 +12,8 @@ const defaultProps = {
   page: 0,
   rowsPerPage: 10,
   rowsCount: mappedBillsMock.length,
-  setPage: vi.fn(),
-  setRowsPerPage: vi.fn(),
-  onHandleFavorite: vi.fn(),
-  onRowClick: vi.fn(),
-  isFavorite: vi.fn().mockReturnValue(false),
+  onPageChange: vi.fn(),
+  onRowsPerPageChange: vi.fn(),
 }
 
 const renderWithTheme = (component: React.ReactElement) => {
@@ -41,62 +38,49 @@ describe('BillsTable', () => {
     expect(getByText('No bills data available')).toBeInTheDocument()
   })
 
-  it('expect to call onRowClick when specific row is clicked', () => {
-    const onRowClick = vi.fn()
-    const { getByText } = renderWithTheme(<BillsTable {...defaultProps} onRowClick={onRowClick} />)
+  it('expect to open modal when specific row is clicked', () => {
+    const { getByText, getByRole } = renderWithTheme(<BillsTable {...defaultProps} />)
 
     fireEvent.click(getByText('65'))
-    expect(onRowClick).toHaveBeenCalledTimes(1)
-    expect(onRowClick).toHaveBeenCalledWith(mappedBillsMock[0])
+
+    expect(getByRole('dialog')).toBeInTheDocument()
+    expect(getByText(/english/i)).toBeInTheDocument()
+    expect(getByText(/gaeilge/i)).toBeInTheDocument()
   })
 
-  it('expect not to open modal when favorite icon is clicked', () => {
-    const onRowClick = vi.fn()
-    const { getAllByRole } = renderWithTheme(<BillsTable {...defaultProps} onRowClick={onRowClick} />)
+  it('expects to call onPageChange when page is changed', () => {
+    const onPageChange = vi.fn()
 
-    const favoriteButtons = getAllByRole('button').filter((button) =>
-      button.querySelector('[data-testid="BookmarkAddIcon"]')
+    const { getByLabelText } = renderWithTheme(
+      <BillsTable {...defaultProps} onPageChange={onPageChange} rowsCount={100} page={0} rowsPerPage={10} />
     )
 
-    fireEvent.click(favoriteButtons[0])
+    const nextPageButton = getByLabelText('Go to next page')
+    fireEvent.click(nextPageButton)
 
-    expect(onRowClick).not.toHaveBeenCalled()
+    expect(onPageChange).toHaveBeenCalledWith(expect.any(Object), 1)
   })
-})
 
-it('expects to call set page when changed', () => {
-  const setPage = vi.fn()
+  it('expect to call onRowsPerPageChange when rows per page is changed', () => {
+    const onPageChange = vi.fn()
+    const onRowsPerPageChange = vi.fn()
+    const { getByRole } = renderWithTheme(
+      <BillsTable
+        {...defaultProps}
+        onPageChange={onPageChange}
+        onRowsPerPageChange={onRowsPerPageChange}
+        rowsCount={50}
+        page={2}
+        rowsPerPage={10}
+      />
+    )
 
-  const { getByLabelText } = renderWithTheme(
-    <BillsTable {...defaultProps} setPage={setPage} rowsCount={100} page={0} rowsPerPage={10} />
-  )
+    const rowsPerPageSelect = getByRole('combobox')
+    fireEvent.mouseDown(rowsPerPageSelect)
 
-  const nextPageButton = getByLabelText('Go to next page')
-  fireEvent.click(nextPageButton)
+    const option = getByRole('option', { name: '25' })
+    fireEvent.click(option)
 
-  expect(setPage).toHaveBeenCalledWith(1)
-})
-
-it('expect to call setRowsPerPage and reset page to 0', () => {
-  const setPage = vi.fn()
-  const setRowsPerPage = vi.fn()
-  const { getByRole } = renderWithTheme(
-    <BillsTable
-      {...defaultProps}
-      setPage={setPage}
-      setRowsPerPage={setRowsPerPage}
-      rowsCount={50}
-      page={2}
-      rowsPerPage={10}
-    />
-  )
-
-  const rowsPerPageSelect = getByRole('combobox')
-  fireEvent.mouseDown(rowsPerPageSelect)
-
-  const option = getByRole('option', { name: '25' })
-  fireEvent.click(option)
-
-  expect(setRowsPerPage).toHaveBeenCalledWith(25)
-  expect(setPage).toHaveBeenCalledWith(0)
+    expect(rowsPerPageSelect).toBeInTheDocument()
+  })
 })

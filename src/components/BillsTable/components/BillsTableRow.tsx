@@ -4,13 +4,16 @@ import { type IMappedBill } from '@/types/bills'
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd'
 import { TableCell, IconButton, TableRow } from '@mui/material'
 
+import RowStatus from './RowStatus'
+
 interface IBillsTableRowProps {
   row: IMappedBill
   onRowClick: (row: IMappedBill) => void
 }
 
 const BillsTableRow = ({ row, onRowClick }: IBillsTableRowProps) => {
-  const { isFavoriteBill, toggleFavoriteBill } = useBillsStore()
+  const toggleFavoriteBill = useBillsStore((state) => state.toggleFavoriteBill)
+  const isFavoriteBill = useBillsStore((state) => state.isFavoriteBill)
 
   const isMarked = isFavoriteBill(row.id)
 
@@ -22,9 +25,15 @@ const BillsTableRow = ({ row, onRowClick }: IBillsTableRowProps) => {
   return (
     <TableRow hover onClick={() => onRowClick(row)} key={row.id} sx={{ cursor: 'pointer' }}>
       <TableCell width={80}>{row.billNo}</TableCell>
+
       <TableCell width={80}>{row.billType}</TableCell>
-      <TableCell width={80}>{row.status}</TableCell>
+
+      <TableCell width={80}>
+        <RowStatus statusType={row.status}></RowStatus>
+      </TableCell>
+
       <TableCell>{row.sponsor}</TableCell>
+
       <TableCell align="right">
         <IconButton aria-label={isMarked ? 'Remove from favorites' : 'Add to favorites'} onClick={handleFavoriteClick}>
           <BookmarkAddIcon

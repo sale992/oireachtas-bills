@@ -1,5 +1,7 @@
 import { mappedBillsMock, billsResponseMock } from '@/__mocks__/billsDataMock'
-import { render, fireEvent } from '@testing-library/react'
+import theme from '@/theme/theme'
+import { ThemeProvider } from '@mui/material/styles'
+import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { vi, expect, it, describe } from 'vitest'
 
@@ -14,23 +16,30 @@ vi.mock('@/hooks/useBills/useBills', () => ({
 }))
 
 vi.mock('@/stores/useBillsStore', () => ({
-  useBillsStore: () => ({
-    favoriteBills: [mappedBillsMock[0]],
-    toggleFavoriteBill: vi.fn(),
-    isFavoriteBill: vi.fn(() => false),
+  useBillsStore: vi.fn((selector) => {
+    const mockState = {
+      favoriteBills: [mappedBillsMock[0]],
+      toggleFavoriteBill: vi.fn(),
+      isFavoriteBill: vi.fn(() => true),
+    }
+    return selector(mockState)
   }),
 }))
 
+const renderWithTheme = (component: React.ReactElement) => {
+  return render(<ThemeProvider theme={theme}>{component}</ThemeProvider>)
+}
+
 describe('Home page', () => {
   it('expects to render bill rows', () => {
-    const { getByText } = render(<Home />)
+    const { getByText } = renderWithTheme(<Home />)
     mappedBillsMock.forEach((bill) => {
       expect(getByText(bill.billNo)).toBeInTheDocument()
     })
   })
 
   it('expects to change selected value in the dropdown', async () => {
-    const { getAllByRole, findByRole, findByText } = render(<Home />)
+    const { getAllByRole, findByRole, findByText } = renderWithTheme(<Home />)
 
     const select = getAllByRole('combobox')[0]
     expect(select).toBeInTheDocument()
@@ -43,19 +52,8 @@ describe('Home page', () => {
     expect(await findByText('Private')).toBeInTheDocument()
   })
 
-  it('expects to open modal when table row is clicked', () => {
-    const { getByText } = render(<Home />)
-
-    const firstBillRow = getByText(mappedBillsMock[0].billNo)
-
-    fireEvent.click(firstBillRow)
-
-    expect(getByText(/english/i)).toBeInTheDocument()
-    expect(getByText(/gaeilge/i)).toBeInTheDocument()
-  })
-
   it('expects to render tabs', () => {
-    const { getByRole } = render(<Home />)
+    const { getByRole } = renderWithTheme(<Home />)
 
     expect(getByRole('tab', { name: /all bills/i })).toBeInTheDocument()
     expect(getByRole('tab', { name: /favorite bills/i })).toBeInTheDocument()
