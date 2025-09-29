@@ -1,6 +1,7 @@
 import BillsTable from '@/components/BillsTable/BillsTable'
 import Tabs from '@/components/Tabs/Tabs'
 import TypeSelect from '@/components/TypeSelect/TypeSelect'
+import { BILL_TYPE } from '@/constants/billType'
 import { useBills } from '@/hooks/useBills/useBills'
 import { useTablePagination } from '@/hooks/useTablePagination/useTablePagination'
 import { useBillsStore } from '@/stores/useBillsStore'
@@ -8,10 +9,10 @@ import { paginate } from '@/utils/functional'
 import { Container, Typography } from '@mui/material'
 import { useMemo, useState } from 'react'
 
-type BillType = 'all' | 'private' | 'public'
+type BillType = (typeof BILL_TYPE)[keyof typeof BILL_TYPE]
 
 const Home = () => {
-  const [type, setType] = useState<BillType>('all')
+  const [type, setType] = useState<BillType>(BILL_TYPE.ALL)
 
   const billsPagination = useTablePagination()
   const favoriteBillsPagination = useTablePagination()
@@ -24,9 +25,9 @@ const Home = () => {
   })
 
   const filteredBills = useMemo(() => {
-    if (type === 'all') return bills
+    if (type === BILL_TYPE.ALL) return bills
 
-    return bills.filter((bill) => bill.billType.toLowerCase() === type)
+    return bills.filter((bill) => bill.billType === type)
   }, [bills, type])
 
   const paginatedFavoriteBills = useMemo(
@@ -42,7 +43,7 @@ const Home = () => {
           <TypeSelect
             onChange={({ target }) => setType(target.value as BillType)}
             value={type}
-            options={['All', 'Private', 'Public']}
+            options={Object.values(BILL_TYPE)}
           />
 
           <BillsTable {...billsPagination} bills={filteredBills} rowsCount={billsCount} isLoading={isLoadingBills} />

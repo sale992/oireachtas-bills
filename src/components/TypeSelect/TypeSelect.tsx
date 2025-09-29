@@ -13,7 +13,7 @@ const TypeSelect = (props: ITypeSelect) => {
       <Typography variant="caption">Filter bills by type</Typography>
       <Select labelId="bills-dropdown" id="bills-dropdown" aria-label="Filter bills by type" {...rest}>
         {options.map((item) => (
-          <MenuItem value={item.toLowerCase()} key={item}>
+          <MenuItem value={item} key={item}>
             {item}
           </MenuItem>
         ))}

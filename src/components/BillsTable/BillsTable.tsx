@@ -20,6 +20,8 @@ export interface IBillsTableProps {
   onRowsPerPageChange: (row: React.ChangeEvent<HTMLInputElement>) => void
 }
 
+const ROWS_PER_PAGE = [10, 25, 50]
+
 const BillsTable = (props: IBillsTableProps) => {
   const { bills = [], isLoading, page, rowsPerPage, rowsCount, onRowsPerPageChange, onPageChange } = props
 
@@ -52,7 +54,7 @@ const BillsTable = (props: IBillsTableProps) => {
       <RenderTable bills={bills} onRowClick={handleRowClick} />
 
       <TablePagination
-        rowsPerPageOptions={[10, 25, 50]}
+        rowsPerPageOptions={ROWS_PER_PAGE}
         component="div"
         count={rowsCount}
         rowsPerPage={rowsPerPage}
