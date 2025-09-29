@@ -1,4 +1,5 @@
-// import { IMappedBill } from "@/types/bills"
+import type { IBillsResponse, BillStatus } from '@/types/bills'
+
 export const mappedBillsMock = [
   {
     id: 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/65',
@@ -35,7 +36,7 @@ export const mappedBillsMock = [
   },
 ] as const
 
-export const billsResponseMock = {
+export const billsResponseMock: IBillsResponse = {
   head: {
     counts: {
       billCount: 5921,
@@ -193,7 +194,6 @@ export const billsResponseMock = {
                   date: '2025-04-15',
                 },
               ],
-              eventURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-event/published',
               showAs: 'Published',
               uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2023/97/published',
             },
@@ -210,7 +210,6 @@ export const billsResponseMock = {
                   date: '2024-11-08',
                 },
               ],
-              eventURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-event/bill-lapsed',
               showAs: 'Bill Lapsed',
               uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2023/97/bill-lapsed',
             },
@@ -223,7 +222,6 @@ export const billsResponseMock = {
                   date: '2025-04-15',
                 },
               ],
-              eventURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-event/enacted',
               showAs: 'Enacted',
               uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2023/97/enacted',
             },
@@ -604,7 +602,7 @@ export const billsResponseMock = {
             },
           },
         ],
-        status: 'Enacted',
+        status: 'Enacted' as BillStatus,
         statusURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-status/enacted',
         uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2023/97',
         versions: [
@@ -655,17 +653,6 @@ export const billsResponseMock = {
           },
         ],
       },
-      billSort: {
-        actNoSort: 3,
-        actShortTitleEnSort: 'financial-services-and-pensions-ombudsman-amendment-act-2025',
-        actShortTitleGaSort: 'acht-an-ombudsman-seirbhisi-airgeadais-agus-pinsean-leasu-2025',
-        actYearSort: 2025,
-        billNoSort: 97,
-        billShortTitleEnSort: 'financial-services-and-pensions-ombudsman-amendment-bill-2023',
-        billShortTitleGaSort: 'bille-an-ombudsman-seirbhisi-airgeadais-agus-pinsean-leasu-2023',
-        billYearSort: 2023,
-      },
-      contextDate: '2025-04-15',
     },
     {
       bill: {
@@ -880,7 +867,6 @@ export const billsResponseMock = {
                   date: '2025-01-29',
                 },
               ],
-              eventURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-event/bill-lapsed',
               showAs: 'Bill Lapsed',
               uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/78/bill-lapsed',
             },
@@ -903,7 +889,6 @@ export const billsResponseMock = {
                   date: '2025-07-23',
                 },
               ],
-              eventURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-event/bill-restored',
               showAs: 'Bill Restored',
               uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/78/bill-restored',
             },
@@ -916,7 +901,6 @@ export const billsResponseMock = {
                   date: '2025-07-23',
                 },
               ],
-              eventURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-event/enacted',
               showAs: 'Enacted',
               uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/78/enacted',
             },
@@ -1307,7 +1291,7 @@ export const billsResponseMock = {
             },
           },
         ],
-        status: 'Enacted',
+        status: 'Enacted' as BillStatus,
         statusURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-status/enacted',
         uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/78',
         versions: [
@@ -1373,17 +1357,6 @@ export const billsResponseMock = {
           },
         ],
       },
-      billSort: {
-        actNoSort: 10,
-        actShortTitleEnSort: 'statute-law-revision-act-2025',
-        actShortTitleGaSort: 'an-tacht-um-athchoiriu-an-dli-reachtuil-2025',
-        actYearSort: 2025,
-        billNoSort: 78,
-        billShortTitleEnSort: 'statute-law-revision-bill-2024',
-        billShortTitleGaSort: 'an-bille-um-athchoiriu-an-dli-reachtuil-2024',
-        billYearSort: 2024,
-      },
-      contextDate: '2025-07-23',
     },
     {
       bill: {
@@ -1501,7 +1474,6 @@ export const billsResponseMock = {
                   date: '2025-05-20',
                 },
               ],
-              eventURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-event/published',
               showAs: 'Published',
               uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/65/published',
             },
@@ -1518,7 +1490,6 @@ export const billsResponseMock = {
                   date: '2024-11-08',
                 },
               ],
-              eventURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-event/bill-lapsed',
               showAs: 'Bill Lapsed',
               uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/65/bill-lapsed',
             },
@@ -1531,7 +1502,6 @@ export const billsResponseMock = {
                   date: '2025-05-20',
                 },
               ],
-              eventURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-event/enacted',
               showAs: 'Enacted',
               uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/65/enacted',
             },
@@ -1897,7 +1867,7 @@ export const billsResponseMock = {
             },
           },
         ],
-        status: 'Enacted',
+        status: 'Enacted' as BillStatus,
         statusURI: 'https://data.oireachtas.ie/ie/oireachtas/def/bill-status/enacted',
         uri: 'https://data.oireachtas.ie/ie/oireachtas/bill/2024/65',
         versions: [
@@ -1948,17 +1918,6 @@ export const billsResponseMock = {
           },
         ],
       },
-      billSort: {
-        actNoSort: 4,
-        actShortTitleEnSort: 'finance-provision-of-access-to-cash-infrastructure-act-2025',
-        actShortTitleGaSort: 'an-tacht-airgeadais-rochtain-ar-bhonneagar-airgid-thirim-a-sholathar-2025',
-        actYearSort: 2025,
-        billNoSort: 65,
-        billShortTitleEnSort: 'finance-provision-of-access-to-cash-infrastructure-bill-2024',
-        billShortTitleGaSort: 'an-bille-airgeadais-rochtain-ar-bhonneagar-airgid-thirim-a-sholathar-2024',
-        billYearSort: 2024,
-      },
-      contextDate: '2025-05-20',
     },
   ],
 }
