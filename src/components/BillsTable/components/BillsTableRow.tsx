@@ -4,7 +4,7 @@ import { type IMappedBill } from '@/types/bills'
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd'
 import { TableCell, IconButton, TableRow } from '@mui/material'
 
-import RowStatus from './RowStatus'
+import BillTypeStatus from './BillTypeStatus'
 
 interface IBillsTableRowProps {
   row: IMappedBill
@@ -29,7 +29,7 @@ const BillsTableRow = ({ row, onRowClick }: IBillsTableRowProps) => {
       <TableCell width={60}>{row.billType}</TableCell>
 
       <TableCell width={80} align="center">
-        <RowStatus statusType={row.status}></RowStatus>
+        <BillTypeStatus statusType={row.status} />
       </TableCell>
 
       <TableCell>{row.sponsor}</TableCell>

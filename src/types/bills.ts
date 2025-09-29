@@ -87,6 +87,8 @@ export interface ISponsor {
   isPrimary: boolean
 }
 
+export type BillStatus = 'Current' | 'Withdrawn' | 'Enacted' | 'Rejected' | 'Defeated' | 'Lapsed'
+
 export interface IOireachtasBill {
   act: IAct
   amendmentLists: { amendmentList: IAmendment }[]
@@ -111,7 +113,7 @@ export interface IOireachtasBill {
   sourceURI: string
   sponsors: { sponsor: ISponsor }[]
   stages: { event: IStageEvent }[]
-  status: string
+  status: BillStatus
   statusURI: string
   uri: string
   versions: { version: IVersion }[]
