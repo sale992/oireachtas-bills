@@ -8,7 +8,7 @@ describe('useTablePagination', () => {
     const { result } = renderHook(() => useTablePagination())
 
     act(() => {
-      result.current.onPageChange(null, 2)
+      result.current.onPageChange(2)
     })
 
     expect(result.current.page).toBe(2)

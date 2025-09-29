@@ -76,7 +76,7 @@ describe('BillsTable', () => {
     const nextPageButton = getByLabelText('Go to next page')
     fireEvent.click(nextPageButton)
 
-    expect(onPageChange).toHaveBeenCalledWith(expect.any(Object), 1)
+    expect(onPageChange).toHaveBeenCalledWith(1)
   })
 
   it('expect to call onRowsPerPageChange when rows per page is changed', () => {
@@ -120,5 +120,17 @@ describe('BillsTable', () => {
 
     const favoriteButtons = getAllByRole('button', { name: /remove from favorites/i })
     expect(favoriteButtons[0]).toBeInTheDocument()
+  })
+
+  it('expects to go to previous page when bills array becomes empty and page is greater than 0', () => {
+    const onPageChange = vi.fn()
+
+    const { rerender } = renderWithTheme(
+      <BillsTable {...defaultProps} bills={[...mappedBillsMock]} page={2} onPageChange={onPageChange} />
+    )
+
+    rerender(<BillsTable {...defaultProps} bills={[]} page={2} onPageChange={onPageChange} />)
+
+    expect(onPageChange).toHaveBeenCalledWith(1)
   })
 })

@@ -5,7 +5,7 @@ import { useToggleState } from '@/hooks/useToggleState/useToggleState'
 import { type IMappedBill } from '@/types/bills'
 import { removeHtmlTags } from '@/utils/functional'
 import { TablePagination, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Modal from '../Modal/Modal'
 import Tabs from '../Tabs/Tabs'
@@ -16,7 +16,7 @@ export interface IBillsTableProps {
   page: number
   rowsCount: number
   rowsPerPage: number
-  onPageChange: (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, page: number) => void
+  onPageChange: (page: number) => void
   onRowsPerPageChange: (row: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -45,6 +45,12 @@ const BillsTable = (props: IBillsTableProps) => {
     },
   ]
 
+  useEffect(() => {
+    if (bills.length === 0 && page > 0) {
+      onPageChange(page - 1)
+    }
+  }, [bills.length, page, onPageChange])
+
   if (isLoading) return <LoadingState />
 
   if (!bills.length) return <NoData />
@@ -59,7 +65,7 @@ const BillsTable = (props: IBillsTableProps) => {
         count={rowsCount}
         rowsPerPage={rowsPerPage}
         page={page}
-        onPageChange={onPageChange}
+        onPageChange={(_, newPage) => onPageChange(newPage)}
         onRowsPerPageChange={onRowsPerPageChange}
         sx={{ mt: 3 }}
       />

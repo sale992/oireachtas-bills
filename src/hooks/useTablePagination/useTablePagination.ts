@@ -4,7 +4,7 @@ export const useTablePagination = (initialRowsPerPage = 10) => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage)
 
-  const onPageChange = (_: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
+  const onPageChange = (newPage: number) => {
     setPage(newPage)
   }
 
